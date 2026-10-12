@@ -1,0 +1,6 @@
+node_modules/
+*.log
+.DS_Store
+
+# Screenshots from a verification run land in a temp dir; only docs/ is tracked.
+/collapsed.png

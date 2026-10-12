@@ -1,0 +1,6 @@
+# Bundle patch for `dsh-ecnu-quota`: one loader row inserts the plugin that
+# registers the read-only quota route and, through `dsh.client`, the browser
+# half that renders the sidebar card and the quota panel.
+- insert:
+    - id: ecnu-quota
+      name: dsh-ecnu-quota

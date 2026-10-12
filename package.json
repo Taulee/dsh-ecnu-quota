@@ -1,0 +1,29 @@
+{
+  "name": "dsh-ecnu-quota",
+  "version": "0.1.1",
+  "private": true,
+  "description": "ECNU (chat.ecnu.edu.cn) quota display for the DSH web GUI: a read-only host route that proxies the ECNU quota API, plus a sidebar card and a detail panel.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "engines": {
+    "node": ">=20.18"
+  }
+}

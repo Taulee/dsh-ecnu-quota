@@ -1,6 +1,6 @@
 {
   "name": "dsh-ecnu-quota",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "ECNU (chat.ecnu.edu.cn) quota display for the DSH web GUI: a read-only host route that proxies the ECNU quota API, plus a sidebar card and a detail panel.",
   "type": "module",
   "license": "MIT",

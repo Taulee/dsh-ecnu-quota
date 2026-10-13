@@ -15,17 +15,21 @@
 
 ## 安装
 
-需要 DSH 桌面版，以及一枚 ECNU Open API 密钥（见下一节）。
+需要 DSH 桌面版、一个终端，以及一枚 ECNU Open API 密钥（见下一节）。
 
-1. 打开 DSH 设置里的插件市场，搜索 `ecnu-quota`。
+1. 直接用源码安装：
 
-2. 点安装。市场会把包装进 `~/.dsh/profiles/desktop`，并把 `dsh-ecnu-quota` 登记进 profile 的 `bundles`。
+   ```sh
+   dsh plugin --profile desktop add github:Taulee/dsh-ecnu-quota
+   ```
 
-3. **完全退出并重新启动 DeepSeek Harness**（改 `bundles` 必须重启，见〈注意事项〉）。
+   命令会把包装进 `~/.dsh/profiles/desktop`，并把 `dsh-ecnu-quota` 登记进 profile 的 `bundles`；要装到别的 profile 就把 `--profile` 换成 `web` 或 `tui`。
 
-4. 侧边栏底部出现 ECNU Chat 卡片即安装成功。没出现就看〈故障排查〉。
+2. **完全退出并重新启动 DeepSeek Harness**（改 `bundles` 必须重启，见〈注意事项〉）。
 
-插件发布在 npm（包名 `dsh-ecnu-quota`），源码在 [github.com/Taulee/dsh-ecnu-quota](https://github.com/Taulee/dsh-ecnu-quota)。
+3. 侧边栏底部出现 ECNU Chat 卡片即安装成功。没出现就看〈故障排查〉。
+
+源码与反馈：[github.com/Taulee/dsh-ecnu-quota](https://github.com/Taulee/dsh-ecnu-quota)。
 
 ## 需要什么密钥
 
@@ -112,7 +116,7 @@
 | 读取密钥失败 | 凭据存储读取报错 | 检查 DSH 的凭据配置 |
 | 该密钥暂无可用的额度窗口 | 密钥有效，但上游没给任何窗口 | 到控制台确认这个账号是否已开通额度 |
 
-整个插件都没出现（侧边栏没有卡片、`/plugins/dsh-ecnu-quota/quota` 返回 404）——逐项确认：市场里显示已安装、`~/.dsh/profiles/desktop/node_modules/dsh-ecnu-quota` 真的存在（`ls -l` 看是不是断掉的软链接）、`~/.dsh/profiles/desktop/package.json` 的 `bundles` 里有 `dsh-ecnu-quota`、改完是否**完全重启**过应用。断链是常见死因：源的目录被删或搬走后，运行中的应用启动时加载不到宿主插件，路由就 404。
+整个插件都没出现（侧边栏没有卡片、`/plugins/dsh-ecnu-quota/quota` 返回 404）——逐项确认：`~/.dsh/profiles/desktop/package.json` 的 `dependencies` 和 `bundles` 里都有 `dsh-ecnu-quota`、`~/.dsh/profiles/desktop/node_modules/dsh-ecnu-quota` 真的存在（`ls -l` 看是不是断掉的软链接）、改完是否**完全重启**过应用。缺 `bundles` 条目和断链都是常见死因：前者让 loader 根本不加载插件，后者让运行中的应用启动时加载不到宿主插件——两种情况下路由都返回 404。
 
 ## 出处与许可
 

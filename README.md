@@ -17,44 +17,15 @@
 
 需要 DSH 桌面版，以及一枚 ECNU Open API 密钥（见下一节）。
 
-1. 把本仓库克隆到本地任意位置：
+1. 打开 DSH 设置里的插件市场，搜索 `ecnu-quota`。
 
-   ```sh
-   git clone https://github.com/Taulee/dsh-ecnu-quota.git
-   ```
+2. 点安装。市场会把包装进 `~/.dsh/profiles/desktop`，并把 `dsh-ecnu-quota` 登记进 profile 的 `bundles`。
 
-2. 把这份克隆挂进 desktop profile：在 `~/.dsh/profiles/desktop` 下建一个软链接，指到你刚克隆的目录（用绝对路径）。
+3. **完全退出并重新启动 DeepSeek Harness**（改 `bundles` 必须重启，见〈注意事项〉）。
 
-   ```sh
-   ln -s /绝对路径/dsh-ecnu-quota ~/.dsh/profiles/desktop/node_modules/dsh-ecnu-quota
-   ```
+4. 侧边栏底部出现 ECNU Chat 卡片即安装成功。没出现就看〈故障排查〉。
 
-3. 在 `~/.dsh/profiles/desktop/package.json` 里加一条 `dependencies`，并把这个插件写进 `bundles`：
-
-   ```jsonc
-   {
-     "dependencies": {
-       "dsh-ecnu-quota": "link:/绝对路径/dsh-ecnu-quota"
-     },
-     "dsh": {
-       "profile": {
-         "bundles": [
-           "@deepseek-ai/dsh-base",
-           "@deepseek-ai/dsh-web-app",
-           "dsh-ecnu-quota"
-         ]
-       }
-     }
-   }
-   ```
-
-   你原本就有的条目照原样保留，这里只是示意。
-
-4. **完全退出并重新启动 DeepSeek Harness**（改 `bundles` 必须重启，见〈注意事项〉）。
-
-5. 侧边栏底部出现 ECNU Chat 卡片即安装成功。没出现就看〈故障排查〉。
-
-用软链挂载的好处是**没有安装步骤、也不改 DSH 的依赖解析**：以后在克隆目录 `git pull` 拉到新版本，重启应用即可生效。
+插件发布在 npm（包名 `dsh-ecnu-quota`），源码在 [github.com/Taulee/dsh-ecnu-quota](https://github.com/Taulee/dsh-ecnu-quota)。
 
 ## 需要什么密钥
 
@@ -141,7 +112,7 @@
 | 读取密钥失败 | 凭据存储读取报错 | 检查 DSH 的凭据配置 |
 | 该密钥暂无可用的额度窗口 | 密钥有效，但上游没给任何窗口 | 到控制台确认这个账号是否已开通额度 |
 
-整个插件都没出现（侧边栏没有卡片、`/plugins/dsh-ecnu-quota/quota` 返回 404）——逐项确认：第 2 步的软链接是否真的建成了（`ls -l ~/.dsh/profiles/desktop/node_modules/dsh-ecnu-quota`，路径要指对）、`bundles` 里有没有写、改完是否**完全重启**过应用。
+整个插件都没出现（侧边栏没有卡片、`/plugins/dsh-ecnu-quota/quota` 返回 404）——逐项确认：市场里显示已安装、`~/.dsh/profiles/desktop/node_modules/dsh-ecnu-quota` 真的存在（`ls -l` 看是不是断掉的软链接）、`~/.dsh/profiles/desktop/package.json` 的 `bundles` 里有 `dsh-ecnu-quota`、改完是否**完全重启**过应用。断链是常见死因：源的目录被删或搬走后，运行中的应用启动时加载不到宿主插件，路由就 404。
 
 ## 出处与许可
 
